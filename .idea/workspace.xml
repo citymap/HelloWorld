@@ -2,34 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a05d0647-c7d2-449f-863c-ae0d1bcc9052" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/backtest.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ReadMe.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datas/2005-2006-day-001.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datas/2006-01-02-volume-min-001.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datas/2006-day-001-optix.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datas/2006-day-001.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datas/2006-day-002.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datas/2006-min-005.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datas/2006-month-001.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datas/2006-volume-day-001.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datas/2006-week-001.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datas/2006-week-002.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datas/bidask.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datas/bidask2.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datas/nvda-1999-2014.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datas/nvda-2014.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datas/orcl-1995-2014.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datas/orcl-2003-2005.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datas/orcl-2014.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datas/ticksample.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datas/yhoo-1996-2014.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datas/yhoo-1996-2015.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datas/yhoo-2003-2005.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datas/yhoo-2014.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test1.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/ReadMe.md" afterPath="$PROJECT_DIR$/readme.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/datas/2006-01-02-volume-min-001.txt" afterPath="$PROJECT_DIR$/datas/2006-01-02-volume-min-001.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/datas/2006-volume-day-001.txt" afterPath="$PROJECT_DIR$/datas/2006-volume-day-001.txt" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -44,8 +20,8 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ReadMe.md" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ReadMe.md">
+      <file leaf-file-name="readme.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/readme.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
               <first_editor relative-caret-position="0">
@@ -349,6 +325,14 @@
       <option name="presentableId" value="Default" />
       <updated>1502847484002</updated>
     </task>
+    <task id="LOCAL-00001" summary="add readme.md,learn to use markdown">
+      <created>1502884953921</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1502884953921</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -376,6 +360,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add readme.md,learn to use markdown" />
+    <option name="LAST_COMMIT_MESSAGE" value="add readme.md,learn to use markdown" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -539,7 +527,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ReadMe.md">
+    <entry file="file://$PROJECT_DIR$/readme.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="0">
