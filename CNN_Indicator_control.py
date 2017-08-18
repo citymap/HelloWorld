@@ -6,6 +6,16 @@ import sys  # To find out the script name (in argv[0])
 #create simple strategy
 
 class SimpleStrategy(bt.Strategy):
+    params = (
+        # Standard MACD Parameters
+        ('macd1', 12),
+        ('macd2', 26),
+        ('macdsig', 9),
+        ('atrperiod', 14),  # ATR Period (standard)
+        ('atrdist', 3.0),   # ATR distance for stop price
+        ('smaperiod', 30),  # SMA Period (pretty standard)
+        ('dirperiod', 10),  # Lookback period to consider SMA trend direction
+    )
     def log(self, txt: object, dt: object = None) -> object:
         ''' Logging function fot this strategy'''
         dt = dt or self.datas[0].datetime.date(0)
@@ -17,6 +27,21 @@ class SimpleStrategy(bt.Strategy):
 
         # To keep track of pending orders
         self.order = None
+        #macd indicator
+        self.macd = bt.indicators.MACD(self.data,
+                                       period_me1=self.p.macd1,
+                                       period_me2=self.p.macd2,
+                                       period_signal=self.p.macdsig)
+
+        # Cross of macd.macd and macd.signal
+        self.mcross = bt.indicators.CrossOver(self.macd.macd, self.macd.signal)
+
+        # To set the stop price
+        self.atr = bt.indicators.ATR(self.data, period=self.p.atrperiod)
+
+        # Control market trend
+        self.sma = bt.indicators.SMA(self.data, period=self.p.smaperiod)
+        self.smadir = self.sma - self.sma(-self.p.dirperiod)
 
     def notify_order(self, order):
         if order.status in [order.Submitted, order.Accepted]:
@@ -46,32 +71,28 @@ class SimpleStrategy(bt.Strategy):
     def next(self):
         # Simply log the closing price of the series from the reference
         self.log('Close, %.2f' % self.dataclose[0])
-
+        #测试一下
+        print(self.macd[0],self.mcross[0],self.sma[0],self.smadir[0])
         # Check if an order is pending ... if yes, we cannot send a 2nd one
         if self.order:
-            return
+            return  # pending order execution
 
-        # Check if we are in the market
-        if not self.position:
-            if self.dataclose[0]>self.dataclose[-30]*1.09:
-
-            # Not yet ... we MIGHT BUY if ...
-
-
-                self.log('BUY CREATE, %.2f' % self.dataclose[0])
-
-                # Keep track of the created order to avoid a 2nd order
+        if not self.position:  # not in the market
+            if self.mcross[0] > 0.0 and self.smadir < 0.0:
                 self.order = self.buy()
+                pdist = self.atr[0] * self.p.atrdist
+                self.pstop = self.data.close[0] - pdist
 
-        else:
+        else:  # in the market
+            pclose = self.data.close[0]
+            pstop = self.pstop
 
-            # Already in the market ... we might sell
-            if self.dataclose[0] <self.dataclose[-10] * 0.91:
-                # SELL, SELL, SELL!!! (with all possible default parameters)
-                self.log('SELL CREATE, %.2f' % self.dataclose[0])
-
-                # Keep track of the created order to avoid a 2nd order
-                self.order = self.sell()
+            if pclose < pstop:
+                self.close()  # stop met - get out
+            else:
+                pdist = self.atr[0] * self.p.atrdist
+                # Update only if greater than
+                self.pstop = max(pstop, pclose - pdist)
 
 
 if __name__ == '__main__':
