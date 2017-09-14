@@ -3,7 +3,10 @@ import backtrader as bt
 import datetime  # For datetime objects
 import os.path  # To manage paths
 import sys  # To find out the script name (in argv[0])
-#create simple strategy
+import tensorflow as tf
+
+
+# create simple strategy
 
 class SimpleStrategy(bt.Strategy):
     params = (
@@ -12,10 +15,12 @@ class SimpleStrategy(bt.Strategy):
         ('macd2', 26),
         ('macdsig', 9),
         ('atrperiod', 14),  # ATR Period (standard)
-        ('atrdist', 3.0),   # ATR distance for stop price
+        ('atrdist', 3.0),  # ATR distance for stop price
         ('smaperiod', 30),  # SMA Period (pretty standard)
         ('dirperiod', 10),  # Lookback period to consider SMA trend direction
     )
+    sess = tf.Session()
+
     def log(self, txt: object, dt: object = None) -> object:
         ''' Logging function fot this strategy'''
         dt = dt or self.datas[0].datetime.date(0)
@@ -27,7 +32,7 @@ class SimpleStrategy(bt.Strategy):
 
         # To keep track of pending orders
         self.order = None
-        #macd indicator
+        # macd indicator
         self.macd = bt.indicators.MACD(self.data,
                                        period_me1=self.p.macd1,
                                        period_me2=self.p.macd2,
@@ -71,8 +76,8 @@ class SimpleStrategy(bt.Strategy):
     def next(self):
         # Simply log the closing price of the series from the reference
         self.log('Close, %.2f' % self.dataclose[0])
-        #测试一下
-        print(self.macd[0],self.mcross[0],self.sma[0],self.smadir[0])
+        # 测试一下
+        print(self.macd[0], self.mcross[0], self.sma[0], self.smadir[0])
         # Check if an order is pending ... if yes, we cannot send a 2nd one
         if self.order:
             return  # pending order execution
@@ -93,6 +98,32 @@ class SimpleStrategy(bt.Strategy):
                 pdist = self.atr[0] * self.p.atrdist
                 # Update only if greater than
                 self.pstop = max(pstop, pclose - pdist)
+
+    def build_q_model(self, input_tensor):
+        input_layer = tf.reshape(input_tensor, [-1, num_x, num_t])
+        layer1 = tf.layers.conv1d(
+            input_layer,
+            5,
+            (1, 2, 3, 4, 5),
+            strides=1,
+            padding='same',
+            name='firstconv')
+        pooling1 = tf.layers.max_pooling1d(layer1, pool_size=1, strides=1, name='firstpolling')
+        conv2 = tf.layers.conv1d(pooling1, 5, 3, strides=1, padding='same', name='second')
+        pooling2 = tf.layers.max_pooling1d(conv2, 2, 1, padding='same', name='secondpooling')
+        flatten1 = tf.reshape(pooling2, [-1, tf.shape(pooling2)[1] * tf.shape(pooling2)[2]])
+        dense1 = tf.layers.dense(flatten1, 20, activation=tf.nn.relu)
+        dense2 = tf.layers.dense(dense1, units=3)
+        return dense2
+
+    def memory_save(self):
+        pass
+
+    def greedy_policy(self,sess):
+        pass
+
+    def q_policy(self):
+        pass
 
 
 if __name__ == '__main__':
@@ -118,10 +149,10 @@ if __name__ == '__main__':
         nullvalue=0.0,
 
         dtformat=('%Y-%m-%d'),
-        #tmformat=('%H:%M:%S'),
+        # tmformat=('%H:%M:%S'),
 
         datetime=0,
-        #time=1,
+        # time=1,
         high=2,
         low=3,
         open=4,
